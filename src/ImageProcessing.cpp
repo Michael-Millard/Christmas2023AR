@@ -49,7 +49,7 @@ void ImageProcessing::drawVillage(cv::Mat& currentFrame, cv::Mat& intrinsMat, cv
 	phonePole1PixPoints = drawModel(currentFrame, fullCamMatrix, inhomog3DPhonePolePoints, brown);
 	// Connecting points
 	// TL = size - 4, TR = size - 3, BL = size - 2, BR = size - 1
-	int vecSize = phonePole1PixPoints.size();
+	int vecSize = (int)phonePole1PixPoints.size();
 	cv::line(currentFrame, phonePole1PixPoints[vecSize - 4], phonePole1PixPoints[vecSize - 3], brown, 2, 8);
 	cv::line(currentFrame, phonePole1PixPoints[vecSize - 2], phonePole1PixPoints[vecSize - 1], brown, 2, 8);
 	// Back right
@@ -144,7 +144,7 @@ void ImageProcessing::drawVillage(cv::Mat& currentFrame, cv::Mat& intrinsMat, cv
 	*************************************/
 
 	// Walls
-	transMat = (cv::Mat)tVec + rotMat * translation(7 * checkerboardSize, 5 * checkerboardSize, 0);
+	transMat = (cv::Mat)tVec + rotMat * translation((innerCornerWidth - 2) * checkerboardSize, (innerCornerHeight - 1) * checkerboardSize, 0);
 	cv::hconcat(rotMat, -transMat, board6DoFPose);
 	fullCamMatrix = intrinsMat * board6DoFPose;
 	housePixPoints = drawModel(currentFrame, fullCamMatrix, inhomog3DHousePoints, green);
@@ -191,8 +191,8 @@ void ImageProcessing::generateModels()
 	/***************
 		House
 	***************/
-	int width = 6 * checkerboardSize;
-	int depth = 5 * checkerboardSize;
+	int width = (innerCornerWidth - 3) * checkerboardSize;
+	int depth = (innerCornerHeight - 1) * checkerboardSize;
 	height = 2 * checkerboardSize;
 	int roofHeight = 2 * checkerboardSize; // Above normal height
 

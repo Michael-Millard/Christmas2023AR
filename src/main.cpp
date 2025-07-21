@@ -100,10 +100,12 @@ int main(int argc, char* argv[])
 
 			// Wait 30 milliseconds, then loop
         	char c = (char)cv::waitKey(30);
+			// Exit if 'x' pressed
         	if (c == 'x')
         	{
         	    exit = true;
         	}
+			// Record video for demo GIF if 'r' pressed
 			else if (c == 'r')
 			{
 			    // Record a 3 second video (approx 90 frames at 30fps)
@@ -116,7 +118,7 @@ int main(int argc, char* argv[])
 			    videoWriter.open(videoFilename, fourcc, fps, currentFrame.size());
 			    if (!videoWriter.isOpened()) {
 			        std::cerr << "Could not open video file for writing.\n";
-			    } else {
+			    } else { 
 			        std::cout << "Recording 3 second video...\n";
 			        for (int i = 0; i < num_frames; ++i) {
 			            webCam >> currentFrame;

@@ -86,8 +86,8 @@ bool CameraCalibrator::FindImageCorners(cv::Mat& currentFrame)
 
 	if (success)
 	{
-		// Epsilon (accuracy) down to 0.001 of a pixel or max iteration count of 30 for termination criteria
-		cv::TermCriteria criteria(cv::TermCriteria::EPS | cv::TermCriteria::MAX_ITER, 30, 0.001);
+		// Epsilon (accuracy) down to 0.1 of a pixel or max iteration count of 20 for termination criteria
+		cv::TermCriteria criteria(cv::TermCriteria::EPS | cv::TermCriteria::MAX_ITER, 20, 0.1);
 		// Refining pixel coordinates for given 2D points
 		cv::cornerSubPix(greyImage, cornerPts, cv::Size(11, 11), cv::Size(-1, -1), criteria);
 		imageCornerCoords = cornerPts;
