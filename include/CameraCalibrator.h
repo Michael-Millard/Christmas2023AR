@@ -8,7 +8,7 @@ class CameraCalibrator
 {
 public:
 	CameraCalibrator(int checkerboardWidth, int checkerboardHeight, double checkerboardSize);
-	~CameraCalibrator();
+	~CameraCalibrator() = default;
 	bool captureCalibrationImages(int numImages, std::string webcamName);
 	bool calibrateCamera(std::string calibImagePath);
 	bool FindImageCorners(cv::Mat& currentFrame);
@@ -40,7 +40,5 @@ private:
 	std::vector<cv::Point2f> imageCornerCoords;
 	std::vector<std::vector<cv::Point3f>> worldCornerPoints; // These still need to be vectors of vectors to match camera calib function params
 	std::vector<std::vector<cv::Point2f>> imageCornerPoints;
-	
-	void initParams();
 };
 

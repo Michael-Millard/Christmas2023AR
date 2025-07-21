@@ -99,10 +99,48 @@ int main(int argc, char* argv[])
 			cv::imshow("Christmas Village", currentFrame);
 
 			// Wait 30 milliseconds, then loop
-			char c = (char)cv::waitKey(30);
-			if (c == 'x')
+        	char c = (char)cv::waitKey(30);
+        	if (c == 'x')
+        	{
+        	    exit = true;
+        	}
+			else if (c == 'r')
 			{
-				exit = true;
+			    // Record a 3 second video (approx 90 frames at 30fps)
+			    int fps = 30;
+			    int duration_sec = 3;
+			    int num_frames = fps * duration_sec;
+			    cv::VideoWriter videoWriter;
+			    std::string videoFilename = "screenshots/demo_video.avi";
+			    int fourcc = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
+			    videoWriter.open(videoFilename, fourcc, fps, currentFrame.size());
+			    if (!videoWriter.isOpened()) {
+			        std::cerr << "Could not open video file for writing.\n";
+			    } else {
+			        std::cout << "Recording 3 second video...\n";
+			        for (int i = 0; i < num_frames; ++i) {
+			            webCam >> currentFrame;
+			            if (currentFrame.empty()) break;
+					
+			            // AR annotation for each frame
+			            bool cornersFound = calibObj->FindImageCorners(currentFrame);
+			            if (cornersFound) {
+			                rVec = calibObj->getRVec();
+			                tVec = calibObj->getTVec();
+			                imageCornerPoints = calibObj->getImageCornerPoints();
+			                imgProcObj->drawVillage(currentFrame, intrinsMatrix, rVec, tVec, imageCornerPoints);
+			            }
+					
+			            videoWriter.write(currentFrame);
+			            cv::imshow("Christmas Village", currentFrame);
+			            if (cv::waitKey(30) == 'x') {
+			                exit = true;
+			                break;
+			            }
+			        }
+			        videoWriter.release();
+			        std::cout << "Video saved as " << videoFilename << "\n";
+			    }
 			}
 		}
 	}

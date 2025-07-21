@@ -12,25 +12,20 @@ CameraCalibrator::CameraCalibrator(int checkerboardWidth_, int checkerboardHeigh
 	, innerCornerHeight{ checkerboardHeight_ - 1 }
 	, checkerboardSize{ checkerboardSize_ }
 {
-	initParams();
-}
-
-CameraCalibrator::~CameraCalibrator()
-{}
-
-void CameraCalibrator::initParams()
-{
 	intrinsMatrix = cv::Mat(3, 3, CV_32FC1);
 	distCoeffs = cv::Mat(1, 5, CV_32FC1);
 	reprojError = 0.0;
 
 	// Initialize world inner corner points
-	for (float i{ 0 }; i < innerCornerHeight; i++) 
+	for (int i = 0; i < innerCornerHeight; i++) 
 	{
-		for (float j{ 0 }; j < innerCornerWidth; j++) 
+		for (int j = 0; j < innerCornerWidth; j++) 
 		{
 			// z = 0 plane
-			worldCornerCoords.push_back(cv::Point3f(checkerboardSize * j, checkerboardSize * i, 0.0f));
+			worldCornerCoords.push_back(cv::Point3f(
+				checkerboardSize * j, 
+				checkerboardSize * i, 
+				0.0f));
 		}
 	}
 }
@@ -166,7 +161,7 @@ bool CameraCalibrator::captureCalibrationImages(int numImages, std::string webca
 		}
 	}
 
-	return calibrateCamera(writePath);
+	return calibrateCamera("./CalibImages/");
 }
 
 bool CameraCalibrator::calibrateCamera(std::string calibImagePath)

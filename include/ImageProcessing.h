@@ -7,7 +7,7 @@ class ImageProcessing
 {
 public:
 	ImageProcessing(int checkerboardWidth_, int checkerboardHeight_, double checkerboardSize_);
-	~ImageProcessing();
+	~ImageProcessing() = default;
 	void drawVillage(cv::Mat& currentFrame, cv::Mat& intrinsMat, cv::Mat& rVec, 
 		cv::Mat& tVec, std::vector<cv::Point2f>& imageCornerPoints);
 	void generateModels();
@@ -61,9 +61,6 @@ private:
 	std::vector<cv::Point2f> phoneLine1PixPoints;
 	std::vector<cv::Point2f> phoneLine2PixPoints;
 	std::vector<cv::Point2f> phoneLine3PixPoints;
-	//std::vector<cv::Point2f> phoneLine4PixPoints;
-
-	void initParams();
 
 	cv::Mat rotation(double thetaX, double thetaY, double thetaZ);
 	cv::Mat translation(double tX, double tY, double tZ);

@@ -10,14 +10,6 @@ ImageProcessing::ImageProcessing(int checkerboardWidth_, int checkerboardHeight_
 	, innerCornerHeight{ checkerboardHeight_ - 1 }
 	, checkerboardSize{ checkerboardSize_ }
 {
-	initParams();
-}
-
-ImageProcessing::~ImageProcessing()
-{}
-
-void ImageProcessing::initParams()
-{
 	camIntrins = cv::Mat(3, 3, CV_64FC1);
 	rotMat = cv::Mat(3, 3, CV_64FC1);
 	transMat = cv::Mat(3, 1, CV_64FC1);

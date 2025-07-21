@@ -8,6 +8,9 @@ build/
 CalibImages/
 CameraParams/
 
+# Ignored avi demo video
+screenshots/demo_video.avi
+
 # Track these folders explicitly (not needed in .gitignore, but for clarity)
 !include/
 !src/
