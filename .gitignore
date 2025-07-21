@@ -1,0 +1,19 @@
+# Ignore build artifacts
+build/
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore calibration images and camera parameters
+CalibImages/
+CameraParams/
+
+# Track these folders explicitly (not needed in .gitignore, but for clarity)
+!include/
+!src/
+!screenshots/
+
+# Track these files explicitly
+!CMakeLists.txt
+!Makefile
+!README.md
